@@ -22,9 +22,20 @@ body {
     padding: 2rem;
     min-height: 100vh;
     box-sizing: border-box;
-    /* Prevent full page scroll if content fits, but allow if needed */
-    overflow-y: auto;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .container {
