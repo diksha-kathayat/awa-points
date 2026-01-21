@@ -1,16 +1,16 @@
 // DATA TO PLAYBACK
 // Modify these values to see the UI change automatically
 let platformData = [
-    { label: "Technical Proficiency", val: 10 },
-    { label: "Communication Skills", val: 10 },
-    { label: "Project Management", val: 10 },
-    { label: "Problem Solving", val: 10 },
-    { label: "Team Collaboration", val: 10 },
-    { label: "Adaptability", val: 10 },
-    { label: "Creativity", val: 10 },
-    { label: "Leadership", val: 10 },
-    { label: "Time Management", val: 10 },
-    { label: "Client Relations", val: 10 }
+    { label: "Sleep, recovery and personal energy", val: 10 },
+    { label: "Ability to focus", val: 10 },
+    { label: "Stress load and emotional pressure", val: 10 },
+    { label: "Trust, psychological safety and openness", val: 10 },
+    { label: "Clarity of goals, priorities and decisions", val: 10 },
+    { label: "Support, coaching and feedback from leaders", val: 10 },
+    { label: "Match between tasks and work settings", val: 10 },
+    { label: "Quality and usability of digital tools", val: 10 },
+    { label: "Hybrid patterns, meetings and collaboration norms", val: 10 },
+    { label: "Physical comfort and ergonomics", val: 10 }
 ];
 
 // Check for query parameters and update values if present
@@ -45,34 +45,7 @@ if (pointsParam) {
     }
 }
 
-const itemsParam = urlParams.get('items');
-if (itemsParam) {
-    try {
-        // Try parsing as JSON array first
-        let items = JSON.parse(itemsParam);
 
-        // If not an array, maybe it's a comma-separated string
-        if (!Array.isArray(items)) {
-            items = itemsParam.split(',');
-        }
-
-        if (Array.isArray(items) && items.length === 10) {
-            platformData = platformData.map((item, index) => ({
-                ...item,
-                label: items[index] || item.label
-            }));
-        }
-    } catch (e) {
-        // Fallback for simple comma-separated list
-        const items = itemsParam.split(',');
-        if (items.length === 10) {
-            platformData = platformData.map((item, index) => ({
-                ...item,
-                label: items[index] || item.label
-            }));
-        }
-    }
-}
 
 function renderSummary() {
     const body = document.getElementById('data-body');
@@ -98,13 +71,13 @@ function renderSummary() {
     if (total === 100) {
         instrContainer.innerHTML = `
             <div class="instruction-box status-valid">
-                <span class="instruction-header">✓ Validation Successful</span>
+                <span class="instruction-header">✓ VALIDATION SUCCESSFUL</span>
                 Your points total 100 exactly. This requirement has been met.
             </div>`;
     } else {
         instrContainer.innerHTML = `
             <div class="instruction-box status-required">
-                <span class="instruction-header">⚠ Action Required</span>
+                <span class="instruction-header">⚠ ACTION REQUIRED</span>
                 The current summation is <strong>${total}</strong>. You must go back to the questionnaire and adjust your values until the total is exactly 100.
             </div>`;
     }
