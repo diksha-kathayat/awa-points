@@ -48,22 +48,16 @@ if (pointsParam) {
 
 
 function renderSummary() {
-    const body = document.getElementById('data-body');
+
     const sumDisplay = document.getElementById('sum-display');
     const instrContainer = document.getElementById('instruction-container');
 
     let total = 0;
-    body.innerHTML = '';
+    // body.innerHTML = ''; // Table removed from HTML
 
     platformData.forEach(item => {
         total += item.val;
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="col-desc">${item.label}</td>
-            <td class="col-points point-val">${item.val}</td>
-        `;
-        body.appendChild(row);
+        // Logic for rendering rows removed as per request
     });
 
     sumDisplay.textContent = total;
