@@ -72,7 +72,7 @@ function renderSummary() {
         instrContainer.innerHTML = `
             <div class="instruction-box status-required">
                 <span class="instruction-header">⚠ ACTION REQUIRED</span>
-                The current summation is <strong>${total}</strong>. You must go back to the questionnaire and adjust your values until the total is exactly 100.
+                The current summation is <strong>${total}</strong>. “Your scores must add up to 100. Please adjust your allocations.”
             </div>`;
     }
 }
