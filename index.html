@@ -4,31 +4,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Points Validation Summary</title>
+    <title>Points Summary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: auto;
+        }
+
+        .total-container {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .total-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .total-amount {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+        }
+
+        .total-value-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+
+        /* Initial color for Allocated Sum */
+        #sum-display,
+        #denominator {
+            transition: color 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container">
-        <header>
-        </header>
-
-        <div class="total-container">
-            <span class="total-label">Total Summation</span>
-            <div class="total-value-wrapper">
-                <span id="sum-display" class="total-amount">0</span>
-                <span class="total-denominator">/ 100</span>
-            </div>
+        <div class="total-container" style="margin-bottom: 12px;">
+            <span class="total-label">Total Points Available</span>
+            <div id="points-available" class="total-amount">100</div>
         </div>
 
-        <div id="instruction-container">
+        <div class="total-container">
+            <span class="total-label">Total Points Allocated</span>
+            <div class="total-value-wrapper">
+                <span id="sum-display" class="total-amount">0</span>
+                <span id="denominator" style="font-size: 14px; font-weight: 700; color: #cbd5e1;">/ 100</span>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        /**
+         * Logic to update points and colors. 
+         * Change 'allocatedValue' to test different scenarios.
+         */
+        function updatePoints(allocated) {
+            const totalMax = 100;
+            const available = totalMax - allocated;
+
+            const sumDisplay = document.getElementById('sum-display');
+            const denominator = document.getElementById('denominator');
+            const availableDisplay = document.getElementById('points-available');
+
+            // Update Text Numbers
+            sumDisplay.innerText = allocated;
+            availableDisplay.innerText = available;
+
+            // Logic for Color Toggling
+            if (allocated === 100) {
+                // Success: Green
+                sumDisplay.style.color = "#10b981"; // Emerald-500
+                denominator.style.color = "#10b981";
+            } else {
+                // Error/Incomplete: Red
+                sumDisplay.style.color = "#ef4444"; // Red-500
+                denominator.style.color = "#ef4444";
+            }
+        }
+
+        // TEST EXAMPLES:
+        // updatePoints(0);   // Will show Red 0/100
+        // updatePoints(100); // Will show Green 100/100
+        updatePoints(45);     // Currently showing Red 45/100
+    </script>
 </body>
 
 </html>
