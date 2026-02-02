@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Points Summary</title>
+    <title>Points Summation Summary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
@@ -53,7 +53,7 @@
             gap: 2px;
         }
 
-        /* Initial color for Allocated Sum */
+        /* Transition for color changes */
         #sum-display,
         #denominator {
             transition: color 0.3s ease;
@@ -80,37 +80,54 @@
 
     <script>
         /**
-         * Logic to update points and colors. 
-         * Change 'allocatedValue' to test different scenarios.
+         * Updates the UI based on a numerical total
          */
-        function updatePoints(allocated) {
+        function updatePoints(allocatedSum) {
             const totalMax = 100;
-            const available = totalMax - allocated;
+            const available = totalMax - allocatedSum;
 
             const sumDisplay = document.getElementById('sum-display');
             const denominator = document.getElementById('denominator');
             const availableDisplay = document.getElementById('points-available');
 
-            // Update Text Numbers
-            sumDisplay.innerText = allocated;
+            // Set text values
+            sumDisplay.innerText = allocatedSum;
             availableDisplay.innerText = available;
 
-            // Logic for Color Toggling
-            if (allocated === 100) {
-                // Success: Green
-                sumDisplay.style.color = "#10b981"; // Emerald-500
-                denominator.style.color = "#10b981";
+            // Apply Green if exactly 100, Red otherwise
+            if (allocatedSum === 100) {
+                const successColor = "#10b981"; // Emerald Green
+                sumDisplay.style.color = successColor;
+                denominator.style.color = successColor;
             } else {
-                // Error/Incomplete: Red
-                sumDisplay.style.color = "#ef4444"; // Red-500
-                denominator.style.color = "#ef4444";
+                const errorColor = "#ef4444"; // Red
+                sumDisplay.style.color = errorColor;
+                denominator.style.color = errorColor;
             }
         }
 
-        // TEST EXAMPLES:
-        // updatePoints(0);   // Will show Red 0/100
-        // updatePoints(100); // Will show Green 100/100
-        updatePoints(45);     // Currently showing Red 45/100
+        /**
+         * Parses the URL for ?points=1,2,3...
+         */
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const pointsString = params.get('points');
+
+            if (pointsString) {
+                // Convert comma-separated string into an array of numbers
+                const pointsArray = pointsString.split(',')
+                    .map(p => parseFloat(p.trim()))
+                    .filter(p => !isNaN(p)); // Remove any bad data
+
+                // Sum the numbers
+                const totalCalculated = pointsArray.reduce((acc, curr) => acc + curr, 0);
+
+                updatePoints(totalCalculated);
+            } else {
+                // Default if no points are provided
+                updatePoints(0);
+            }
+        };
     </script>
 </body>
 
